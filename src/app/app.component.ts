@@ -1,12 +1,24 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { PeopleService } from '../shared/people.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'wgu-angular-leadership-demo';
+  peopleArray: any;
+
+  constructor(private peopleService: PeopleService) {}
+
+  getPeople() {
+    this.peopleService.getPeople().subscribe((people) => {
+      this.peopleArray = people;
+    });
+  }
+
+  ngOnInit() {
+    this.getPeople();
+  }
 }
